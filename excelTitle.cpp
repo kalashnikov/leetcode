@@ -12,7 +12,7 @@ using namespace std;
 // 26 -> Z
 // 27 -> AA
 // 28 -> AB 
-string convertToTitle(int n) {
+string convertToTitle2(int n) {
   int cnt = 0;
   long long i = 1, j = 0, l = 0;
   while(l<n) { 
@@ -40,10 +40,19 @@ string convertToTitle(int n) {
 string convertToTitle(int n) {
   string result;
   while (n) {
+    //cout << char('A' + (n - 1) % 26) << endl;
     result.push_back('A' + (n - 1) % 26), n = (n - 1) / 26;    
   }
   reverse(result.begin(), result.end());
   return result;
+}
+
+int titleToNumber(string s) {
+  int ans = 0; 
+  for(int i=0;i<s.length();i++){
+    ans = ans*26 + s[i]-'A'+1;
+  }
+  return ans;
 }
 
 int main(){
@@ -57,5 +66,11 @@ int main(){
   cout << convertToTitle(18279) << endl;
   //cout << convertToTitle(1000000001) << endl;
   cout << convertToTitle(52) << endl;
+
+  cout << titleToNumber("Z") << endl;
+  cout << titleToNumber("AA") << endl;
+  cout << titleToNumber("AZ") << endl;
+  cout << titleToNumber("AAA") << endl;
+
   return 0;
 }
