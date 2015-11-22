@@ -119,7 +119,7 @@ int rob_not_good(vector<int>& nums) {
 //}
 
 // https://leetcode.com/discuss/30079/c-1ms-o-1-space-very-simple-solution 
-// Maintain two max value. One for even and another for odd. 
+// Maintain two max value. One is i-1, and other one is i-2.  
 int rob(vector<int>& nums) { 
   int n = nums.size(), pre = 0, cur = 0;
   for (int i = 0; i < n; i++) {
