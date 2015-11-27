@@ -67,7 +67,7 @@ vector<int> inorderTraversal(TreeNode* root) {
   return nodes;
 }
 
-vector<int> inorderTraversal(TreeNode* root) {
+vector<int> inorderTraversal2(TreeNode* root) {
   TreeNode* ptr; 
   set<TreeNode*> visited;
   vector<int> ans;
@@ -121,6 +121,18 @@ int main(){
   TreeNode n7(7);
   TreeNode n8(8);
   TreeNode n1(1);
+ 
+  /*
+  TreeNode n6(6);
+  TreeNode n0(0);
+  TreeNode n2(2);
+  TreeNode n3(3);
+  TreeNode n4(4);
+  TreeNode n5(5);
+  TreeNode n7(7);
+  TreeNode n8(8);
+  TreeNode n1(1);
+  */
 
   n3.left = &n5;
   n3.right= &n1;

@@ -45,11 +45,55 @@ int romanToInt(string s) {
   return ans;
 }
 
+// https://leetcode.com/discuss/32626/simple-solution
+string intToRoman(int num) { 
+  string M[] = {"", "M", "MM", "MMM"};
+  string C[] = {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"};
+  string X[] = {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"};
+  string I[] = {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
+  return M[num/1000] + C[(num%1000)/100] + X[(num%100)/10] + I[num%10];
+}
+
+// 28 ms 
+string intToRoman2(int num) {
+
+  string ans = "";
+  while(num>=1000){ ans +=  "M"; num-=1000; }
+  if (num>=100){
+    if (num>= 900){ ans += "CM"; num-= 900; }
+    else if (num>= 500){ ans += "D"; num-= 500; }
+    else if (num>= 400){ ans += "CD"; num-= 400; }
+
+    while(num>=100) { ans += "C"; num-= 100; }
+  }
+  if (num>=10){
+    if (num>= 90){ ans += "XC"; num-= 90; }
+    else if (num>= 50){ ans += "L"; num-= 50; }
+    else if (num>= 40){ ans += "XL"; num-= 40; }
+
+    while(num>=10) { ans += "X"; num-= 10; }
+  }
+
+  if (num>= 9){ ans += "IX"; num-= 9; }
+  else if (num>= 5){ ans += "V"; num-= 5; }
+  else if (num>= 4){ ans += "IV"; num-= 4; }
+
+  while(num) { ans += "I"; num-= 1; }
+  return ans;
+}
+
 int main(){
   cout << romanToInt("VII") << " " << 7 << endl;
   cout << romanToInt("MCMIV") << " " << 1904 << endl;
   cout << romanToInt("MCMLIV") << " " << 1954<< endl;
   cout << romanToInt("MCMXC") << " " << 1990 << endl;
   cout << romanToInt("MMXIV") << " " << 2014 << endl;
+
+  cout << intToRoman(7)    << " VII"   << endl;
+  cout << intToRoman(1904) << " MCMIV" << endl;
+  cout << intToRoman(1954) << " MCMLIV"<< endl;
+  cout << intToRoman(1990) << " MCMXC" << endl;
+  cout << intToRoman(2014) << " MMXIV" << endl;
+  cout << intToRoman(3999) << " " << romanToInt("MMMCMXCIX") << endl;
   return 0;
 }
