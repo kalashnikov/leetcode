@@ -38,7 +38,7 @@ vector<int> postorderTraversal(TreeNode* root) {
 // O(n) time, O(1) space
 // https://leetcode.com/discuss/36713/solutions-iterative-recursive-traversal-different-solutions
 // Ref: http://www.cnblogs.com/AnnieKim/archive/2013/06/15/morristraversal.html
-vector<int> inorderTraversal(TreeNode* root) {
+vector<int> inorderTraversal3(TreeNode* root) {
   TreeNode* curNode = root;
   vector<int> nodes;
   while (curNode) {
@@ -65,6 +65,39 @@ vector<int> inorderTraversal(TreeNode* root) {
     }
   }
   return nodes;
+}
+
+vector<int> inorderTraversal(TreeNode* root) {
+  vector<int> cache; 
+
+  TreeNode *ptr, *cur = root;
+  while(cur) {
+    ptr = cur;
+    if ( ptr->left ) {
+      ptr = ptr->left;
+      while(ptr->right && ptr->right!=cur) ptr = ptr->right;
+      ptr->right = cur;
+    }
+    if ( cur->left ) { 
+      cur = cur->left;
+    } else {
+      ptr = cur->right;
+      while( ptr && ptr->left && ptr->left==cur){
+        cache.push_back(cur->val);
+        cur->right = NULL;
+        cur = ptr; // back to acestor
+        ptr = cur->right;
+      }
+      cache.push_back(cur->val);
+      cur = cur->right;
+    }
+
+    if ( cur == root ) { 
+      cache.push_back(cur->val);
+      cur = cur->right;
+    }
+  }
+  return cache; 
 }
 
 vector<int> inorderTraversal2(TreeNode* root) {
@@ -146,10 +179,13 @@ int main(){
   auto a1 = preorderTraversal(&n3);
   for(auto v:a1) cout << v << " "; cout << endl; 
 
-  auto a2 = inorderTraversal(&n3);
+  auto a2 = inorderTraversal3(&n3);
   for(auto v:a2) cout << v << " "; cout << endl; 
 
   auto a3 = postorderTraversal(&n3);
   for(auto v:a3) cout << v << " "; cout << endl; 
+  
+  auto a22= inorderTraversal(&n3);
+  for(auto v:a22) cout << v << " "; cout << endl; 
   return 0;
 }
