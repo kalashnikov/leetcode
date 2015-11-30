@@ -3,6 +3,8 @@
 ---
 
 ## Revisited Needed
+- 4 Median of Sorted Array
+- 5 Longest Palindromic Substring
 - 74 Search 2D Matrix
 - 91 Decode Ways
 - 110 Balanced Binary Tree
