@@ -3,6 +3,7 @@
 ---
 
 ## Revisited Needed
+- 74 Search 2D Matrix
 - 91 Decode Ways
 - 110 Balanced Binary Tree
 - 140 Word Break II 
