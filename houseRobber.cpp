@@ -10,9 +10,9 @@ int helper(vector<pair<int,int>> l, vector<pair<int,int>>& h){
     int sum = 0;
     for(auto v:h){  
       sum+=v.first;
-      cout << v.first << "(" << v.second << ") ";
+      //cout << v.first << "(" << v.second << ") ";
     }
-    cout << " | sum:" << sum << endl;
+    //cout << " | sum:" << sum << endl;
     return sum;
   } else {
     auto v = l.back(); l.pop_back();
@@ -120,7 +120,7 @@ int rob_not_good(vector<int>& nums) {
 
 // https://leetcode.com/discuss/30079/c-1ms-o-1-space-very-simple-solution 
 // Maintain two max value. One is i-1, and other one is i-2.  
-int rob(vector<int>& nums) { 
+int rob_line(vector<int>& nums) {
   int n = nums.size(), pre = 0, cur = 0;
   for (int i = 0; i < n; i++) {
     int temp = max(pre + nums[i], cur);
@@ -130,18 +130,43 @@ int rob(vector<int>& nums) {
   return cur;
 }
 
+int rob(vector<int>& nums){
+  if(nums.size()==0 ) return 0 ;
+  if(nums.size()==1 ) return nums[0];
+  int n = nums.size(), pre1 = 0, pre2 = 0, cur1 = 0, cur2 = 0;
+  int temp1, temp2;
+  for (int i = 0; i < n; i++) {
+    if(i<n-1) { 
+      temp1 = max(pre1 + nums[i], cur1);
+      pre1  = cur1;
+      cur1  = temp1;
+    }
+    if(i>0) { 
+      temp2 = max(pre2 + nums[i], cur2);
+      pre2  = cur2;
+      cur2  = temp2;
+    }
+  }
+  return max(cur1,cur2);
+}
+
 int main(){
 
   vector<int> i1{5,6,2,3,5,1,4};
-  cout << rob(i1) << " ";
-  cout << rob2(i1) << endl << endl;
+  cout << rob(i1) << endl;
   
+  vector<int> i1_1{5,6,2,3,5,1};
+  vector<int> i1_2{6,2,3,5,1,4};
+  cout << max(rob_line(i1_1), rob_line(i1_2)) << endl;
+ 
   vector<int> i2{8,2,8,9,2};
-  cout << rob(i2) << " ";
-  cout << rob2(i2) << endl << endl;
+  cout << rob(i2) << endl;
+  
+  vector<int> i2_1{8,2,8,9};
+  vector<int> i2_2{2,8,9,2};
+  cout << max(rob_line(i2_1), rob_line(i2_2)) << endl;
   
   vector<int> i3{8,9,9,4,10,5,6,9,7,9};
-  cout << rob(i3) << " ";
-  cout << rob2(i3) << endl;
+  cout << rob(i3) << endl;
   return 0;
 }
