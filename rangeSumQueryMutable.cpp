@@ -78,26 +78,29 @@ class NumArray3{
 // Binary Indexed Tree
 // https://leetcode.com/discuss/70191/share-my-c-solution-1700ms-using-tree-array
 // Ref: http://www.csie.ntnu.edu.tw/~u91029/Sequence.html
-class NumArray {
+class NumArray4{
   public:
-    NumArray(vector<int> &nums) {
+    NumArray4(vector<int> &nums) {
       sz = nums.size();
       num = vector<int>(sz+1, 0);
       sum = vector<int>(sz+1, 0);
-      for(int i=0; i<sz; i++) {
-        update(i, nums[i]);
-      }
-
+      
       for(auto v:num) cout << v << " "; cout << endl;
-      for(auto v:sum) cout << v << " "; cout << endl;
+      for(int i=0; i<sz; i++) {
+        cout << nums[i] << " " << bitset<16>(nums[i]) << " | ";
+        update(i, nums[i]);
+        for(auto v:sum) cout << v << " "; cout << endl;
+      }
     }
 
     void update(int idx, int val) {
       int oldv = num[idx+1];
       for(int i = idx+1; i<=sz; i+= (i&-i)) {
+        cout << i << " ";
         sum[i] = sum[i] - oldv + val;
       }
       num[idx+1] = val;
+      cout << endl;
     }
 
     int sumRange(int i, int j) {
@@ -116,7 +119,6 @@ class NumArray {
     vector<int> num;
     vector<int> sum;
 };
-
 
 int main(){
 
