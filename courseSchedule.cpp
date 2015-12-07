@@ -6,7 +6,8 @@
 
 using namespace std;
 
-bool canFinish(int numCourses, std::vector<std::pair<int, int> > &prerequisites) {
+// https://leetcode.com/discuss/34791/bfs-topological-sort-and-dfs-finding-cycle-by-c
+bool canFinish2(int numCourses, std::vector<std::pair<int, int> > &prerequisites) {
   std::vector<std::unordered_set<int> > need(numCourses);
   for (std::size_t i = 0; i != prerequisites.size(); ++i)
     need[prerequisites[i].second].insert(prerequisites[i].first);
@@ -29,6 +30,55 @@ bool canFinish(int numCourses, std::vector<std::pair<int, int> > &prerequisites)
   return numCourses == 0;
 }
 
+// 252ms, Topology Sort - BFS
+bool canFinish(int numCourses, vector<pair<int,int>> prerequisites ){
+  vector<vector<int>> need(numCourses);
+  for(auto v:prerequisites)
+    need[v.second].emplace_back(v.first);
+  int indegree[numCourses];
+  memset(indegree, 0, numCourses*sizeof(int));
+  for(auto v:need)
+    for(auto vv:v)
+      ++indegree[vv];
+  vector<int> q; q.reserve(numCourses);
+  for(int i=0;i<numCourses;i++)
+    if(indegree[i]==0)
+      q.emplace_back(i);
+  while(!q.empty()){
+    int idx = q.back(); q.pop_back();
+    for(auto v:need[idx])
+      if(--indegree[v]==0)
+        q.push_back(v);
+    --numCourses;
+  }
+  return numCourses==0;
+}
+
+vector<int> findOrder(int numCourses, vector<pair<int, int>>& prerequisites) {
+  vector<vector<int>> need(numCourses);
+  for(auto v:prerequisites)
+    need[v.second].emplace_back(v.first);
+  int indegree[numCourses];
+  memset(indegree, 0, numCourses*sizeof(int));
+  for(auto v:need)
+    for(auto vv:v)
+      ++indegree[vv];
+  vector<int> q; q.reserve(numCourses);
+  for(int i=0;i<numCourses;i++)
+    if(indegree[i]==0)
+      q.emplace_back(i);
+  vector<int> ans; ans.reserve(numCourses);
+  while(!q.empty()){
+    int idx = q.back(); q.pop_back();
+    for(auto v:need[idx])
+      if(--indegree[v]==0)
+        q.push_back(v);
+    ans.push_back(idx);
+    --numCourses;
+  }
+  if(numCourses!=0) ans.clear();
+  return ans;
+}
 
 int main(){
   vector<pair<int,int>> i1 { {1,0} };
@@ -66,5 +116,14 @@ int main(){
     {3,2}
   };
   cout << canFinish(4, i0) << " 0" << endl;
+
+  vector<pair<int,int>> j0 {
+    {1,0},
+    {2,0},
+    {3,1},
+    {3,2}
+  };
+  auto a1 = findOrder(4, j0); 
+  for(auto v:a1) cout << v << " "; cout << endl;
   return 0;
 }
