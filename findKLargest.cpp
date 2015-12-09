@@ -45,7 +45,7 @@ int findKthLargest3(vector<int>& nums, int k) {
 }
 
 // https://leetcode.com/discuss/45366/c-using-quick-selection-clean-code 
-int findKthLargest(vector<int>& nums, int k) {
+int findKthLargest_golden(vector<int>& nums, int k) {
     const int size_n = nums.size();
     int left = 0, right = size_n;
     while (left < right) {
@@ -66,6 +66,24 @@ int findKthLargest(vector<int>& nums, int k) {
 int findKthLargest2(vector<int>& nums, int k){
   std::nth_element(nums.begin(), nums.begin() + (nums.size()-k), nums.end());
   return nums[nums.size()-k];
+}
+
+int findKthLargest(vector<int>& nums, int k){
+  const int sz = nums.size();
+  int lo = 0, hi = sz;
+  while(lo < hi) {
+    int i = lo, j = hi-1, pivot = nums[lo]; 
+    while(i<=j){
+      while(i<=j && nums[i] >= pivot) i++;
+      while(i<=j && nums[j]  < pivot) j--;
+      if(i<=j)
+        swap(nums[i++],nums[j--]);
+    }
+    swap(nums[lo], nums[j]);
+    if(j==k-1) return nums[j];
+    if(j <k-1) lo = j+1;
+    else       hi = j;
+  }
 }
 
 int main(){

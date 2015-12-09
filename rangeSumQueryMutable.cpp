@@ -85,18 +85,22 @@ class NumArray4{
       num = vector<int>(sz+1, 0);
       sum = vector<int>(sz+1, 0);
       
-      for(auto v:num) cout << v << " "; cout << endl;
+      //for(auto v:num) cout << v << " "; cout << endl;
       for(int i=0; i<sz; i++) {
-        cout << nums[i] << " " << bitset<16>(nums[i]) << " | ";
+        //cout << nums[i] << " " << bitset<16>(nums[i]) << " | ";
         update(i, nums[i]);
-        for(auto v:sum) cout << v << " "; cout << endl;
+        //for(auto v:sum) cout << v << " "; cout << endl;
       }
+
+      for(auto v:sum) cout << v << " "; cout << endl;
+      for(auto v:num) cout << v << " "; cout << endl;
     }
 
     void update(int idx, int val) {
       int oldv = num[idx+1];
+      cout << "Update " << idx << ": ";
       for(int i = idx+1; i<=sz; i+= (i&-i)) {
-        cout << i << " ";
+        cout << i << "(" << bitset<4>(i) << ") ";
         sum[i] = sum[i] - oldv + val;
       }
       num[idx+1] = val;
@@ -109,15 +113,50 @@ class NumArray4{
 
     int getSum(int idx) {
       int ret = 0;
+      cout << "Get " << idx << ": ";
       for(int i=idx; i>0; i-=(i&-i)) {
+        cout << i << "(" << bitset<4>(i) << ") ";
         ret += sum[i];
       }
+      cout << endl;
       return ret;
     }
   private :
     int sz;
     vector<int> num;
     vector<int> sum;
+};
+
+class NumArray {
+  int size;
+  vector<int> num; 
+  vector<int> sum;
+public:
+    NumArray(vector<int> &nums) {
+      size = nums.size();
+      num = vector<int>(size+1, 0);
+      sum = vector<int>(size+1, 0);
+      for(int i=0;i<size;i++)
+        update(i, nums[i]);
+    }
+
+    void update(int i, int val) {
+      int oldv = num[i+1]; 
+      for(int j=i+1;j<=size;j+=(j&-j))
+        sum[j] = sum[j] - oldv + val;
+      num[i+1] = val;
+    }
+
+    int sumRange(int i, int j) {
+       return getSum(j+1) - getSum(i); 
+    }
+
+    int getSum(int i){
+      int ret = 0;
+      for(int j=i;j>0;j-=(j&-j))
+        ret += sum[j];
+      return ret;
+    }
 };
 
 int main(){
