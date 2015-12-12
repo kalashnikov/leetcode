@@ -25,8 +25,12 @@
 - 233 Number of Digit One
 - 236 Lower Common Ancestor in Binary Tree 
 - 241 Different Ways to Add Parentheses
+  + Sliding window solution.
+- 259 Minimum Size Subarray Sum 
 - 260 Single Number III 
 - 279 Perfect Square
+- 287 Find the Duplicate Number 
+  + Interesting solution. 
 - 293 & 294 Flip Game
 - 307 Range Sum Query - Mutable
 
