@@ -32,6 +32,7 @@
 - 287 Find the Duplicate Number 
   + Interesting solution. 
 - 293 & 294 Flip Game
+- 300 Longest Increasing Subsequence  
 - 307 Range Sum Query - Mutable
 
 ---
