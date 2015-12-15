@@ -5,6 +5,8 @@
 ## Revisited Needed
 - 4 Median of Sorted Array
 - 5 Longest Palindromic Substring
+- 33 & 81 Search in Rotated Sorted Array I/II
+  + Mind difference with Binary Search
 - 74 Search 2D Matrix
 - 91 Decode Ways
 - 110 Balanced Binary Tree
