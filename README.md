@@ -13,7 +13,7 @@
 - 137 Single Number II 
 - 146 LRU Cache
 - 168 Excel Sheet Column Title
-- 169 Majority Elements
+- 169 & 229 Majority Elements I/II
 - 189 Rotate Array
 - 198 House Robber
 - 200 Number of Islands
