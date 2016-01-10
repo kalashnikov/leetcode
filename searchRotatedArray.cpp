@@ -30,7 +30,8 @@ int search_unique(vector<int>& A, int target) {
   return A[lo] == target ? lo : -1;
 }
 
-// Duplicate 
+// Duplicate
+// https://leetcode.com/discuss/223/when-there-are-duplicates-the-worst-case-is-could-we-do-better
 bool search(vector<int>& A, int target) {
   int lo = 0;
   int hi = A.size() - 1;
